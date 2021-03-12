@@ -6,7 +6,7 @@
 #    By: besellem <besellem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/12 16:32:37 by besellem          #+#    #+#              #
-#    Updated: 2021/03/12 17:31:00 by besellem         ###   ########.fr        #
+#    Updated: 2021/03/12 17:35:24 by besellem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ all:			$(PUSH_SWAP)
 
 clean:
 				$(MUTE) $(MAKE) -C libft clean
+				$(MUTE) $(RM) $(COMMON_OBJS)
 				$(MUTE) $(RM) $(PUSH_SWAP_OBJS)
 				$(MUTE) $(RM) $(CHECKER_OBJS)
 
