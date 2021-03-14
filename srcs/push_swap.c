@@ -6,13 +6,15 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 16:31:08 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/12 17:04:26 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/14 23:28:24 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	main(__attribute__((unused)) int ac, __attribute__((unused)) char **av)
+int	main(int ac, char **av)
 {
+	(void)ac;
+	(void)av;
 	return (0);
 }

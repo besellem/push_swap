@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 16:35:27 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/14 20:21:25 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/14 23:27:02 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,9 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <stdint.h>
 # include <unistd.h>
 # include <libft.h>
-
-/*
-** -- DEFINES --
-*/
-#define OPT_V_HEADER "---------------------------\n   Stack A   |   Stack B\n"\
-					"---------------------------\n"
 
 /*
 ** -- DATA STRUCTURES --
@@ -44,18 +39,27 @@ typedef	struct	s_push_swap
 
 /*
 ** -- PROTOTYPES --
+** Common
+*/
+void			ft_quit(t_push_swap *data, char *file, int line);
+void			ft_print_stacks(t_push_swap *data);
+int				ft_exec_cmd(t_push_swap *data, char *line);
+void			ft_parse_args(int ac, char **av, t_push_swap *data);
+void			ft_do_nothing(void *ptr);
+
+/*
 ** operations
 */
-void	ft_op_sa(t_push_swap *data);
-void	ft_op_sb(t_push_swap *data);
-void	ft_op_ss(t_push_swap *data);
-void	ft_op_pa(t_push_swap *data);
-void	ft_op_pb(t_push_swap *data);
-void	ft_op_ra(t_push_swap *data);
-void	ft_op_rb(t_push_swap *data);
-void	ft_op_rr(t_push_swap *data);
-void	ft_op_rra(t_push_swap *data);
-void	ft_op_rrb(t_push_swap *data);
-void	ft_op_rrr(t_push_swap *data);
+void			ft_op_sa(t_push_swap *data);
+void			ft_op_sb(t_push_swap *data);
+void			ft_op_ss(t_push_swap *data);
+void			ft_op_pa(t_push_swap *data);
+void			ft_op_pb(t_push_swap *data);
+void			ft_op_ra(t_push_swap *data);
+void			ft_op_rb(t_push_swap *data);
+void			ft_op_rr(t_push_swap *data);
+void			ft_op_rra(t_push_swap *data);
+void			ft_op_rrb(t_push_swap *data);
+void			ft_op_rrr(t_push_swap *data);
 
 #endif
