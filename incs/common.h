@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 16:35:27 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/14 23:27:02 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/14 23:46:48 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,20 @@ typedef	struct	s_push_swap
 ** -- PROTOTYPES --
 ** Common
 */
-void			ft_quit(t_push_swap *data, char *file, int line);
-void			ft_print_stacks(t_push_swap *data);
-int				ft_exec_cmd(t_push_swap *data, char *line);
-void			ft_parse_args(int ac, char **av, t_push_swap *data);
 void			ft_do_nothing(void *ptr);
+int				ft_exec_cmd(t_push_swap *data, char *line);
+void			ft_quit(t_push_swap *data);
+
+/*
+** Parsing
+*/
+void			ft_parse_args(int ac, char **av, t_push_swap *data);
+void			ft_cpy_args(int ac, char **av, t_push_swap *data);
+
+/*
+** Options
+*/
+void			ft_opt_v(t_push_swap *data);
 
 /*
 ** operations
