@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 23:36:18 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/14 23:47:15 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/15 00:57:20 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ static int	ft_lst_check_duplicates(t_list *lst)
 
 void		ft_cpy_args(int ac, char **av, t_push_swap *data)
 {
-	t_list	*tmp;
-	long	arg;
-	int		i;
+	t_list		*tmp;
+	long long	arg;
+	int			i;
 
 	i = data->start_arg;
 	while (i < ac)
@@ -61,7 +61,7 @@ void		ft_cpy_args(int ac, char **av, t_push_swap *data)
 		if (ft_strnlen(av[i], 12) == 12 || (!ft_strisdigit(av[i]) &&
 			!((*av[i] == '-' || *av[i] == '+') && ft_strisdigit(av[i] + 1))))
 			ft_quit(data);
-		arg = ft_atol(av[i]);
+		arg = ft_strtoll(av[i], NULL, 10);
 		if (arg < INT32_MIN || arg > INT32_MAX)
 			ft_quit(data);
 		tmp = ft_lstnew((void *)(intptr_t)arg);
