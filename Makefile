@@ -6,7 +6,7 @@
 #    By: besellem <besellem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/12 16:32:37 by besellem          #+#    #+#              #
-#    Updated: 2021/03/14 23:45:51 by besellem         ###   ########.fr        #
+#    Updated: 2021/03/15 12:19:49 by besellem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ LIBFT			=	-Llibft -lft
 
 ## Commands
 CC				=	clang
-CFLAGS			=	-Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS			=	-Wall -Wextra -Werror# -g3 -fsanitize=address
 RM				=	rm -f
 
 

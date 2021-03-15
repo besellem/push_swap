@@ -6,15 +6,26 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 22:05:24 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/14 23:46:38 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/15 16:07:02 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-void	ft_do_nothing(void *ptr)
+int		ft_is_sorted(t_push_swap *data)
 {
-	(void)ptr;
+	t_list *stack_a;
+
+	if (data->stack_b)
+		return (0);
+	stack_a = data->stack_a;
+	while (stack_a->next)
+	{
+		if ((int)stack_a->content > (int)stack_a->next->content)
+			return (0);
+		stack_a = stack_a->next;
+	}
+	return (1);
 }
 
 int		ft_exec_cmd(t_push_swap *data, char *line)
@@ -42,7 +53,7 @@ int		ft_exec_cmd(t_push_swap *data, char *line)
 void	ft_quit(t_push_swap *data)
 {
 	ft_putendl_fd("Error", 2);
-	ft_lstclear(&data->stack_a, ft_do_nothing);
-	ft_lstclear(&data->stack_b, ft_do_nothing);
+	ft_lstclear(&data->stack_a, NULL);
+	ft_lstclear(&data->stack_b, NULL);
 	exit(EXIT_FAILURE);
 }
