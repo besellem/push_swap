@@ -6,13 +6,13 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 10:17:25 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/16 10:28:28 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/16 15:59:17 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-int	ft_lstmin_idx(t_list *lst)
+int	ft_lstmin_idx(t_list *lst, int *nb)
 {
 	t_list	*tmp;
 	int		idx;
@@ -28,6 +28,8 @@ int	ft_lstmin_idx(t_list *lst)
 		if ((int)tmp->content < min)
 		{
 			min = (int)tmp->content;
+			if (nb)
+				*nb = min;
 			idx = i;
 		}
 		++i;
@@ -36,7 +38,7 @@ int	ft_lstmin_idx(t_list *lst)
 	return (idx);
 }
 
-int	ft_lstmax_idx(t_list *lst)
+int	ft_lstmax_idx(t_list *lst, int *nb)
 {
 	t_list	*tmp;
 	int		idx;
@@ -52,6 +54,8 @@ int	ft_lstmax_idx(t_list *lst)
 		if ((int)tmp->content > max)
 		{
 			max = (int)tmp->content;
+			if (nb)
+				*nb = max;
 			idx = i;
 		}
 		++i;

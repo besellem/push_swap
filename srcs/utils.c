@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 22:05:24 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/15 16:07:02 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/16 14:20:09 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		ft_is_sorted(t_push_swap *data)
 	return (1);
 }
 
-int		ft_exec_cmd(t_push_swap *data, char *line)
+int		ft_exec_cmd(t_push_swap *data, char *line, char *prog_name)
 {
 	const t_operations	ops[] = {
 		{"sa", ft_op_sa}, {"sb", ft_op_sb}, {"ss", ft_op_ss}, {"pa", ft_op_pa},
@@ -43,6 +43,10 @@ int		ft_exec_cmd(t_push_swap *data, char *line)
 		if (ft_strcmp(ops[i].operation_name, line) == 0)
 		{
 			ops[i].f(data);
+			if (ft_strcmp(prog_name, PROG_PUSH_SWAP) == 0)
+				ft_putendl(ops[i].operation_name);
+			if (data->opt_v)
+				ft_opt_v(data);
 			return (1);
 		}
 		++i;

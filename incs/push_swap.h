@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 16:33:47 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/12 17:11:31 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/16 14:16:58 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,9 @@
 # define PUSH_SWAP_H
 
 # include "common.h"
+
+# ifndef PROG_NAME
+#  define PROG_NAME "push_swap"
+# endif
 
 #endif

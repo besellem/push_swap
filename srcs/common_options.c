@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 23:40:24 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/15 15:17:31 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/16 14:01:52 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_opt_v(t_push_swap *data)
 	t_list *stack_a;
 	t_list *stack_b;
 
-	ft_putstr("\033[2J\033[H");
+	// ft_putstr("\033[2J\033[H");
 	ft_putendl("---------------------------\n   Stack A   |   Stack B");
 	ft_putendl("---------------------------");
 	stack_a = data->stack_a;
