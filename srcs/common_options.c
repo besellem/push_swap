@@ -6,19 +6,21 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 23:40:24 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/16 21:30:02 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/16 23:43:50 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
+#define OPT_V_HEADER1 "---------------------------"
+#define OPT_V_HEADER2 "   Stack A   |   Stack B   "
 
 void	ft_opt_v(t_push_swap *data)
 {
 	t_list *stack_a;
 	t_list *stack_b;
 
-	ft_putendl("\033[2J\033[H---------------------------\n");
-	ft_putendl("   Stack A   |   Stack B\n---------------------------");
+	ft_putendl("\033[2J\033[H");
+	ft_putendl(OPT_V_HEADER1 "\n" OPT_V_HEADER2 "\n" OPT_V_HEADER1);
 	stack_a = data->stack_a;
 	stack_b = data->stack_b;
 	while (stack_a || stack_b)
