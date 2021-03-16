@@ -3,6 +3,8 @@
 	"ponicode.testSettings.testLocation.path": "{rootDir}/{filePath}/{fileName}.test.{ext}",
 	"files.associations": {
 		"exception": "c",
-		"common.h": "c"
+		"common.h": "c",
+		"stdio.h": "c",
+		"stdlib.h": "c"
 	}
 }

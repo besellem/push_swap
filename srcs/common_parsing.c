@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 23:36:18 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/16 13:56:13 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/16 17:01:52 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,17 @@ void		ft_cpy_args(int ac, char **av, t_push_swap *data)
 	{
 		if (ft_strnlen(av[i], 12) == 12 || (!ft_strisdigit(av[i]) &&
 			!((*av[i] == '-' || *av[i] == '+') && ft_strisdigit(av[i] + 1))))
-			ft_quit(data);
+			ft_quit_error(data);
 		arg = ft_strtoll(av[i], NULL, 10);
 		if (arg < INT32_MIN || arg > INT32_MAX)
-			ft_quit(data);
+			ft_quit_error(data);
 		tmp = ft_lstnew((void *)(intptr_t)arg);
 		if (!tmp)
-			ft_quit(data);
+			ft_quit_error(data);
 		ft_lstadd_back(&data->stack_a, tmp);
 		++i;
 	}
 	if (ft_lst_check_duplicates(data->stack_a) == 0)
-		ft_quit(data);
+		ft_quit_error(data);
+	data->currently_in_stack_a = ac - data->start_arg;
 }

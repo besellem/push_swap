@@ -6,44 +6,24 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 16:31:08 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/16 16:01:32 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/16 17:23:15 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-
 /*
-** #1 Algo
-** 
+** Algo #2
+** Idea:
+** backtracking algorithm, checking all the possibilities recursively and
+** keeping the fastest.
+**
+** To implement
 */
 
-void	sort_get_lst_min(t_push_swap *data)
-{
-	int min_idx;
-	int i;
-
-	min_idx = ft_lstmin_idx(data->stack_a, NULL);
-	if (min_idx < ft_lstsize(data->stack_a) / 2)
-	{
-		i = 0;
-		while (i < min_idx)
-		{
-			ft_exec_cmd(data, "ra", PROG_NAME);
-			++i;
-		}
-	// }
-	// else
-	// {
-	// 	i = min_idx - 1;
-	// 	while (i > 0)
-	// 	{
-	// 		ft_exec_cmd(data, "rra", PROG_NAME);
-	// 		--i;
-	// 	}
-	// }
-	ft_exec_cmd(data, "pb", PROG_NAME);
-}
+/*
+** swap all stack_b back in stack_a (using 'pa' operation)
+*/
 
 void	swap_stack_back(t_push_swap *data)
 {
@@ -53,24 +33,64 @@ void	swap_stack_back(t_push_swap *data)
 	while (tmp)
 	{
 		ft_exec_cmd(data, "pa", PROG_NAME);
+		if (ft_is_sorted(data))
+			break ;
 		tmp = tmp->next;
 	}
 }
 
+/*
+** Algo #1
+*/
+
+void	algo_1(t_push_swap *data)
+{
+	int min_idx;
+	int i;
+
+	min_idx = ft_lstmin_idx(data->stack_a, NULL);
+	if (min_idx < data->currently_in_stack_a / 2)
+	{
+		i = 0;
+		while (i < min_idx)
+		{
+			ft_exec_cmd(data, "ra", PROG_NAME);
+			if (ft_is_sorted(data))
+				return ;
+			++i;
+		}
+	}
+	else
+	{
+		i = data->currently_in_stack_a - min_idx;
+		while (i-- > 0)
+		{
+			ft_exec_cmd(data, "rra", PROG_NAME);
+			if (ft_is_sorted(data))
+				return ;
+		}
+	}
+	if (ft_stack_is_sorted(data->stack_a) && data->stack_b &&
+		(int)data->stack_a->content > (int)data->stack_b->content)
+	{
+		swap_stack_back(data);
+	}
+	else
+		ft_exec_cmd(data, "pb", PROG_NAME);
+}
+
 void	sort_lst(t_push_swap *data)
 {
-	// t_list	*tmp;
-	// int		min_idx;
-	// int		i;
-
+	if (data->opt_v)
+		ft_opt_v(data);
 	while (!ft_is_sorted(data))
 	{
-		if (ft_lstsize(data->stack_a) == 2 &&
+		if (data->currently_in_stack_a == 2 &&
 			(int)data->stack_a->content > (int)data->stack_a->next->content)
 			ft_exec_cmd(data, "sa", PROG_NAME);
-		if (data->stack_a && ft_lstsize(data->stack_a) > 2)
+		if (data->stack_a && data->currently_in_stack_a > 2)
 		{
-			sort_get_lst_min(data);
+			algo_1(data);
 		}
 		else
 		{
@@ -79,7 +99,7 @@ void	sort_lst(t_push_swap *data)
 	}
 }
 
-int			main(int ac, char **av)
+int		main(int ac, char **av)
 {
 	t_push_swap data;
 
@@ -89,7 +109,6 @@ int			main(int ac, char **av)
 	ft_parse_args(ac, av, &data);
 	ft_cpy_args(ac, av, &data);
 	sort_lst(&data);
-	ft_lstclear(&data.stack_a, NULL);
-	ft_lstclear(&data.stack_b, NULL);
+	ft_quit_sorted(&data);
 	return (0);
 }

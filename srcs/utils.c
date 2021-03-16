@@ -6,11 +6,25 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 22:05:24 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/16 14:20:09 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/16 21:30:11 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
+
+int		ft_stack_is_sorted(t_list *lst)
+{
+	t_list *tmp;
+
+	tmp = lst;
+	while (tmp->next)
+	{
+		if ((int)tmp->content > (int)tmp->next->content)
+			return (0);
+		tmp = tmp->next;
+	}
+	return (1);
+}
 
 int		ft_is_sorted(t_push_swap *data)
 {
@@ -26,6 +40,21 @@ int		ft_is_sorted(t_push_swap *data)
 		stack_a = stack_a->next;
 	}
 	return (1);
+}
+
+void	ft_quit_error(t_push_swap *data)
+{
+	ft_putendl_fd("Error", 2);
+	ft_lstclear(&data->stack_a, NULL);
+	ft_lstclear(&data->stack_b, NULL);
+	exit(EXIT_FAILURE);
+}
+
+void	ft_quit_sorted(t_push_swap *data)
+{
+	ft_lstclear(&data->stack_a, NULL);
+	ft_lstclear(&data->stack_b, NULL);
+	exit(EXIT_SUCCESS);
 }
 
 int		ft_exec_cmd(t_push_swap *data, char *line, char *prog_name)
@@ -52,12 +81,4 @@ int		ft_exec_cmd(t_push_swap *data, char *line, char *prog_name)
 		++i;
 	}
 	return (0);
-}
-
-void	ft_quit(t_push_swap *data)
-{
-	ft_putendl_fd("Error", 2);
-	ft_lstclear(&data->stack_a, NULL);
-	ft_lstclear(&data->stack_b, NULL);
-	exit(EXIT_FAILURE);
 }

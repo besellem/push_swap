@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 16:32:54 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/16 14:19:09 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/16 17:01:40 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	ft_parser(t_push_swap *data)
 		if (ft_exec_cmd(data, line, PROG_NAME) == 0)
 		{
 			free(line);
-			ft_quit(data);
+			ft_quit_error(data);
 		}
 		free(line);
 		if (check == 0)

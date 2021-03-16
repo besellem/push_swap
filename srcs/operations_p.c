@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 17:14:48 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/14 22:19:11 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/16 16:46:24 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	ft_op_pa(t_push_swap *data)
 	data->stack_b->next = NULL;
 	ft_lstadd_front(&data->stack_a, data->stack_b);
 	data->stack_b = tmp;
+	data->currently_in_stack_a++;
+	data->currently_in_stack_b--;
 }
 
 void	ft_op_pb(t_push_swap *data)
@@ -34,4 +36,6 @@ void	ft_op_pb(t_push_swap *data)
 	data->stack_a->next = NULL;
 	ft_lstadd_front(&data->stack_b, data->stack_a);
 	data->stack_a = tmp;
+	data->currently_in_stack_a--;
+	data->currently_in_stack_b++;
 }
