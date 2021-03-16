@@ -6,7 +6,7 @@
 #    By: besellem <besellem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/16 18:26:28 by besellem          #+#    #+#              #
-#    Updated: 2021/03/16 19:30:11 by besellem         ###   ########.fr        #
+#    Updated: 2021/03/16 23:46:20 by besellem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ import random
 
 def	ft_gen_numbers(min_nb, max_nb):
 	if min_nb > max_nb:
-		print("Error: args not in order")
+		print("\033[1;31mError:\033[0m args not in order")
 		return None
 	lst = []
 	count = 0
@@ -32,4 +32,4 @@ if __name__ == "__main__":
 	if len(sys.argv) == 3:
 		print(*ft_gen_numbers(int(sys.argv[1]), int(sys.argv[2])))
 	else:
-		print("Error: args")
+		print("\033[1;31mError:\033[0m args")
