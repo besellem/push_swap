@@ -6,7 +6,7 @@
 #    By: besellem <besellem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/12 16:32:37 by besellem          #+#    #+#              #
-#    Updated: 2021/03/15 12:19:49 by besellem         ###   ########.fr        #
+#    Updated: 2021/03/16 10:17:55 by besellem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS_FOLDER		:=	srcs
 
 COMMON_SRCS		=	$(SRCS_FOLDER)/common_parsing.c \
 					$(SRCS_FOLDER)/common_options.c \
+					$(SRCS_FOLDER)/lst_utils.c \
 					$(SRCS_FOLDER)/operations_s.c \
 					$(SRCS_FOLDER)/operations_p.c \
 					$(SRCS_FOLDER)/operations_r.c \

@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 16:35:27 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/15 16:07:09 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/16 10:26:54 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ typedef	struct	s_push_swap
 int				ft_is_sorted(t_push_swap *data);
 int				ft_exec_cmd(t_push_swap *data, char *line);
 void			ft_quit(t_push_swap *data);
+
+/*
+** Utils
+*/
+int				ft_lstmin_idx(t_list *lst);
+int				ft_lstmax_idx(t_list *lst);
 
 /*
 ** Parsing
