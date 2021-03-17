@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 16:31:08 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/17 15:57:25 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/17 16:10:38 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,36 +51,26 @@ void	swap_stack_back(t_push_swap *data)
 
 void	algo_1(t_push_swap *data)
 {
-	int min_idx;
-	int i;
+	const int	min_idx = ft_lstmin_idx(data->stack_a, NULL);
+	int			i;
 
-	min_idx = ft_lstmin_idx(data->stack_a, NULL);
 	if (min_idx < data->currently_in_stack_a / 2)
 	{
 		i = 0;
-		while (i < min_idx)
-		{
-			ft_exec_cmd(data, "ra", PROG_NAME);
+		while (i++ < min_idx && ft_exec_cmd(data, "ra", PROG_NAME))
 			if (ft_is_sorted(data))
 				return ;
-			++i;
-		}
 	}
 	else
 	{
 		i = data->currently_in_stack_a - min_idx;
-		while (i-- > 0)
-		{
-			ft_exec_cmd(data, "rra", PROG_NAME);
+		while (i-- > 0 && ft_exec_cmd(data, "rra", PROG_NAME))
 			if (ft_is_sorted(data))
 				return ;
-		}
 	}
 	if (ft_stack_is_sorted(data->stack_a) && data->stack_b &&
 		(int)data->stack_a->content > (int)data->stack_b->content)
-	{
 		swap_stack_back(data);
-	}
 	else
 		ft_exec_cmd(data, "pb", PROG_NAME);
 }
