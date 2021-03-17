@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 16:31:08 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/16 17:23:15 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/17 15:57:25 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 **
 ** To implement
 */
+// int		ft_backtrack(t_push_swap *data)
+// {
+// 	if (ft_is_sorted(data))
+// 		return (1);
+// 	return (1);
+// }
 
 /*
 ** swap all stack_b back in stack_a (using 'pa' operation)
