@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 16:35:27 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/16 21:29:24 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/18 16:02:17 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef	struct	s_push_swap
 	int		opt_c : 2;
 	int		opt_v : 2;
 	int		start_arg;
+	int		tab_size;
 	int		currently_in_stack_a;
 	int		currently_in_stack_b;
 	t_list	*stack_a;

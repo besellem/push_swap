@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 16:32:54 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/16 17:01:40 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/18 15:08:58 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ static void	ft_parser(t_push_swap *data)
 	char	*line;
 	int		check;
 
-	if (data->opt_v)
-		ft_opt_v(data);
 	while ((check = get_next_line(STDIN_FILENO, &line)) > 0)
 	{
 		if (ft_exec_cmd(data, line, PROG_NAME) == 0)
@@ -41,6 +39,8 @@ int			main(int ac, char **av)
 	ft_bzero(&data, sizeof(t_push_swap));
 	ft_parse_args(ac, av, &data);
 	ft_cpy_args(ac, av, &data);
+	if (data.opt_v)
+		ft_opt_v(&data);
 	ft_parser(&data);
 	if (ft_is_sorted(&data))
 		ft_putendl(B_GREEN"OK"CLR_COLOR);

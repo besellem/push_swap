@@ -6,7 +6,7 @@
 #    By: besellem <besellem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/16 19:05:14 by besellem          #+#    #+#              #
-#    Updated: 2021/03/16 21:28:52 by besellem         ###   ########.fr        #
+#    Updated: 2021/03/18 15:27:37 by besellem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,14 +23,12 @@ if __name__ == "__main__":
 			print("\033[1;31mError:\033[0m push_swap does not exist (create executable first)")
 			exit(1)
 
-
 		operations_lst = []
 		stats = {
 			"iterations_nb": 50,
 			"min_op":		 -1,
 			"max_op":		 0
 		}
-		
 		for i in range(1, stats["iterations_nb"] + 1):
 			
 			# Generate a list of numbers based on the arguments
@@ -47,11 +45,13 @@ if __name__ == "__main__":
 			push_swap_stdout, push_swap_stderr = push_swap_exec.communicate()
 			push_swap_operations_nb = int(push_swap_stdout.decode())
 
+			os.system(f"./push_swap {numbers_generated_str} | ./checker {numbers_generated_str}")
+
 			# Append the list with the last result
 			operations_lst.append(push_swap_operations_nb)
 
 			# Print current state
-			print(f'\033[1;31m# {i:2}\033[0m => {push_swap_operations_nb}')
+			print(f'\033[1;36m# {i:2}\033[0m => {push_swap_operations_nb}')
 			
 			# Replace stats if necessary
 			if stats["max_op"] < max(operations_lst):

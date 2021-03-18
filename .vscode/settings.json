@@ -5,6 +5,7 @@
 		"exception": "c",
 		"common.h": "c",
 		"stdio.h": "c",
-		"stdlib.h": "c"
+		"stdlib.h": "c",
+		"algorithm": "c"
 	}
 }

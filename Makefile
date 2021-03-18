@@ -6,7 +6,7 @@
 #    By: besellem <besellem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/12 16:32:37 by besellem          #+#    #+#              #
-#    Updated: 2021/03/16 10:17:55 by besellem         ###   ########.fr        #
+#    Updated: 2021/03/18 15:57:57 by besellem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ CHECKER			=	checker
 ## Sources
 SRCS_FOLDER		:=	srcs
 
-COMMON_SRCS		=	$(SRCS_FOLDER)/common_parsing.c \
+COMMON_SRCS		=	$(SRCS_FOLDER)/case3.c \
+					$(SRCS_FOLDER)/common_parsing.c \
 					$(SRCS_FOLDER)/common_options.c \
 					$(SRCS_FOLDER)/lst_utils.c \
 					$(SRCS_FOLDER)/operations_s.c \

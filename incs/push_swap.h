@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 16:33:47 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/16 14:16:58 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/18 16:02:14 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,7 @@
 # ifndef PROG_NAME
 #  define PROG_NAME "push_swap"
 # endif
+
+void		sort3nbrs(t_push_swap *data);
 
 #endif
