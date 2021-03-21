@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 16:31:08 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/18 23:07:47 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/21 16:01:41 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,54 +305,124 @@ void	sort_algo_2(t_push_swap *data)
 ** ALGO #3
 ** Quicksort
 */
-int		partition(int *tab, int low, int high)
-{
-	int	pivot = tab[high];
-	int	i;
-	int	j;
+// int		partition(int *tab, int low, int high)
+// {
+// 	int	pivot = tab[high];
+// 	int	i;
+// 	int	j;
  
-	// Index of smaller element and indicates the right position of pivot found so far
-	i = low - 1;
-	j = low;
-	while (j < high)
+// 	// Index of smaller element and indicates the right position of pivot found so far
+// 	i = low - 1;
+// 	j = low;
+// 	while (j < high)
+// 	{
+// 		// If current element is smaller than the pivot
+// 		if (tab[j] < pivot)
+// 		{
+// 			// increment index of smaller element
+// 			++i;
+// 			// swap(&tab[i], &tab[j]);
+// 		}
+// 		++j;
+// 	}
+// 	// swap(&tab[i + 1], &tab[high]);
+// 	return (i + 1);
+// }
+
+// void	quickSort(int *tab, int low, int high)
+// {
+// 	int	pivot;
+
+// 	if (low < high)
+// 	{
+// 		// pivot is partitioning index, tab[p] is now at right place
+// 		pivot = partition(tab, low, high);
+
+// 		// Separately sort elements before
+// 		// partition and after partition
+// 		quickSort(tab, low, pivot - 1);
+// 		quickSort(tab, pivot + 1, high);
+// 	}
+// }
+
+#define PACKAGES_TO_DIV_WITH_MEDIANS 10
+
+void	sort_stack_b_new(t_push_swap *data)
+{
+	int	min;
+
+	while (data->stack_b)
 	{
-		// If current element is smaller than the pivot
-		if (tab[j] < pivot)
+		min = ft_lstmin(data->stack_b);
+		if ((int)data->stack_b->content == min)
 		{
-			// increment index of smaller element
-			++i;
-			// swap(&tab[i], &tab[j]);
+			ft_exec_cmd(data, "pa", PROG_NAME);
+			ft_exec_cmd(data, "ra", PROG_NAME);
 		}
-		++j;
+		else
+		{
+			if ((int)ft_lstlast(data->stack_b)->content == min ||
+				ft_lstmin_idx(data->stack_b, NULL) >= data->currently_in_stack_b / 2)
+			{
+				ft_exec_cmd(data, "rrb", PROG_NAME);
+			}
+			else
+				ft_exec_cmd(data, "rb", PROG_NAME);
+		}
 	}
-	// swap(&tab[i + 1], &tab[high]);
-	return (i + 1);
 }
 
-void	quickSort(int *tab, int low, int high)
+void	push_under_median(t_push_swap *data, int median, int min_lst)
 {
-	int	pivot;
-
-	if (low < high)
+	while (ft_lstmin(data->stack_a) >= min_lst
+		&& ft_lstmin(data->stack_a) <= median)
 	{
-		// pivot is partitioning index, tab[p] is now at right place
-		pivot = partition(tab, low, high);
+		if ((int)data->stack_a->content >= min_lst &&
+			(int)data->stack_a->content <= median)
+			ft_exec_cmd(data, "pb", PROG_NAME);
+		else
+			ft_exec_cmd(data, "ra", PROG_NAME);
+	}
+}
 
-		// Separately sort elements before
-		// partition and after partition
-		quickSort(tab, low, pivot - 1);
-		quickSort(tab, pivot + 1, high);
+void	push_upper_median(t_push_swap *data, int median, int max_lst)
+{
+	while (ft_lstmin(data->stack_a) > median
+		&& ft_lstmin(data->stack_a) <= max_lst)
+	{
+		if ((int)data->stack_a->content > median &&
+			(int)data->stack_a->content <= max_lst)
+			ft_exec_cmd(data, "pb", PROG_NAME);
+		else
+			ft_exec_cmd(data, "ra", PROG_NAME);
 	}
 }
 
 void	sort_algo_3(t_push_swap *data)
 {
 	int	*tab = ft_sort_lst_in_tab(data);
+	int	median_cut;
+	int min;
+	int max;
 
-	if (data->opt_v)
-		ft_opt_v(data);
-	
-	// printf(B_YELLOW"%s:%d:"CLR_COLOR" PASSING HERE\n", __FILE__, __LINE__);
+	median_cut = PACKAGES_TO_DIV_WITH_MEDIANS;
+	// printf("number of medians: [%lld]\n", ft_power(2, median_cut));
+	while (median_cut <= data->tab_size)
+	{
+		min = median_cut - PACKAGES_TO_DIV_WITH_MEDIANS;
+		max = median_cut;
+		int median = tab[(max + min) / 2];
+		printf("min_lst: [%d]\n", min);
+		printf("max_lst: [%d]\n", max);
+		printf("median: [%d]\n\n", median);
+		push_under_median(data, tab[median_cut / 2], tab[median_cut - data->tab_size / PACKAGES_TO_DIV_WITH_MEDIANS]);
+		// sort_stack_b_new(data);
+		// push_upper_median(data, tab[median_cut / 2], tab[median_cut]);
+		// sort_stack_b_new(data);
+		if (median_cut == 0)
+			break ;
+		median_cut += PACKAGES_TO_DIV_WITH_MEDIANS;
+	}
 	free((int *)tab);
 }
 
@@ -368,10 +438,13 @@ void	ft_push_swap(t_push_swap *data)
 	else if (data->currently_in_stack_a <= 5)
 		sort5nbrs(data);
 	else if (data->currently_in_stack_a <= 100)
-		sort_algo_2(data);
+	{
+		// sort_algo_2(data);
+		sort_algo_3(data);
+	}
 	else
 	{
-		sort_algo_2(data);
+		// sort_algo_2(data);
 		// sort_algo_3(data);
 	}
 }

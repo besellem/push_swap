@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 23:40:24 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/18 21:06:47 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/21 13:13:17 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_opt_v(t_push_swap *data)
 	t_list *stack_a;
 	t_list *stack_b;
 
-	usleep(2000);
+	usleep(250000);
 	ft_putendl("\033[2J\033[H");
 	ft_putendl(OPT_V_HEADER1 "\n" OPT_V_HEADER2 "\n" OPT_V_HEADER1);
 	stack_a = data->stack_a;
