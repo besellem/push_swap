@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 23:36:18 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/18 12:04:49 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/22 19:31:20 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,5 @@ void		ft_cpy_args(int ac, char **av, t_push_swap *data)
 	}
 	if (ft_lst_check_duplicates(data->stack_a) == 0)
 		ft_quit_error(data);
-	data->currently_in_stack_a = ac - data->start_arg;
+	data->in_stack_a = ac - data->start_arg;
 }
