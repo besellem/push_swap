@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 16:31:08 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/21 16:01:41 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/22 16:55:31 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -415,14 +415,37 @@ void	sort_algo_3(t_push_swap *data)
 		printf("min_lst: [%d]\n", min);
 		printf("max_lst: [%d]\n", max);
 		printf("median: [%d]\n\n", median);
-		push_under_median(data, tab[median_cut / 2], tab[median_cut - data->tab_size / PACKAGES_TO_DIV_WITH_MEDIANS]);
-		// sort_stack_b_new(data);
-		// push_upper_median(data, tab[median_cut / 2], tab[median_cut]);
-		// sort_stack_b_new(data);
+		push_under_median(data, median, min);
+		sort_stack_b_new(data);
+		push_upper_median(data, median, max);
+		sort_stack_b_new(data);
 		if (median_cut == 0)
 			break ;
 		median_cut += PACKAGES_TO_DIV_WITH_MEDIANS;
 	}
+	free((int *)tab);
+}
+
+void	sort_algo_3_100(t_push_swap *data)
+{
+	const int	*tab = ft_sort_lst_in_tab(data);
+
+	while (ft_lstmin(data->stack_a) < tab[data->tab_size / 2])
+	{
+		if ((int)data->stack_a->content < tab[data->tab_size / 2])
+			ft_exec_cmd(data, "pb", PROG_NAME);
+		else
+			ft_exec_cmd(data, "ra", PROG_NAME);
+	}
+	sort_stack_b_new(data);
+	while (ft_lstmax(data->stack_a) >= tab[data->tab_size / 2])
+	{
+		if ((int)data->stack_a->content >= tab[data->tab_size / 2])
+			ft_exec_cmd(data, "pb", PROG_NAME);
+		else
+			ft_exec_cmd(data, "ra", PROG_NAME);
+	}
+	sort_stack_b_new(data);
 	free((int *)tab);
 }
 
@@ -440,11 +463,12 @@ void	ft_push_swap(t_push_swap *data)
 	else if (data->currently_in_stack_a <= 100)
 	{
 		// sort_algo_2(data);
-		sort_algo_3(data);
+		sort_algo_3_100(data);
 	}
 	else
 	{
 		// sort_algo_2(data);
+		sort_algo_3_100(data);
 		// sort_algo_3(data);
 	}
 }

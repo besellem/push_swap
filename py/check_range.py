@@ -6,7 +6,7 @@
 #    By: besellem <besellem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/16 19:05:14 by besellem          #+#    #+#              #
-#    Updated: 2021/03/18 15:27:37 by besellem         ###   ########.fr        #
+#    Updated: 2021/03/22 17:11:07 by besellem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,58 @@ from generate import ft_gen_numbers
 import os
 import sys
 import subprocess
+
+
+def	print_stats(operations_lst, stats):
+	diff = int(sys.argv[2]) - int(sys.argv[1]) + 1
+	average = sum(operations_lst) / len(operations_lst)
+
+	print("\n######################################")
+	print(f'push_swap has been executed \033[1;32m{stats["iterations_nb"]}\033[0m times:\n')
+	print(f'The minimum was:       \033[1;32m{stats["min_op"]}\033[0m')
+	print(f'The maximum was:       \033[1;32m{stats["max_op"]}\033[0m')
+	print(f'Diff btwn min and max: \033[1;32m{stats["max_op"] - stats["min_op"]}\033[0m')
+	print(f'Average:               \033[1;32m{average}\033[0m operations')
+
+	print("")
+	print("With the current average, your project seems ", end="")
+	if diff == 3:
+		if average > 3:
+			print("\033[1;31mKO :(\033[0m")
+		else:
+			print("\033[1;32mOK\033[0m")
+	elif diff == 5:
+		if average > 12:
+			print("\033[1;31mKO :(\033[0m")
+		else:
+			print("\033[1;32mOK\033[0m")
+	elif diff <= 100:
+		if average > 1500:
+			print("\033[1;31mKO :(\033[0m")
+		elif average > 1300:
+			print("\033[1;32mOK with barem 1\033[0m")
+		elif average > 1100:
+			print("\033[1;32mOK with barem 2\033[0m")
+		elif average > 900:
+			print("\033[1;32mOK with barem 3\033[0m")
+		elif average > 700:
+			print("\033[1;32mOK with barem 4\033[0m")
+		else:
+			print("\033[1;32mOK with barem 5! Good job!\033[0m")
+	elif diff <= 500:
+		if average > 11500:
+			print("\033[1;31mKO :(\033[0m")
+		elif average > 10000:
+			print("\033[1;32mOK with barem 1\033[0m")
+		elif average > 8500:
+			print("\033[1;32mOK with barem 2\033[0m")
+		elif average > 7000:
+			print("\033[1;32mOK with barem 3\033[0m")
+		elif average > 5500:
+			print("\033[1;32mOK with barem 4\033[0m")
+		else:
+			print("\033[1;32mOK with barem 5! Good job!\033[0m")
+
 
 if __name__ == "__main__":
 
@@ -45,26 +97,20 @@ if __name__ == "__main__":
 			push_swap_stdout, push_swap_stderr = push_swap_exec.communicate()
 			push_swap_operations_nb = int(push_swap_stdout.decode())
 
-			os.system(f"./push_swap {numbers_generated_str} | ./checker {numbers_generated_str}")
-
 			# Append the list with the last result
 			operations_lst.append(push_swap_operations_nb)
 
 			# Print current state
 			print(f'\033[1;36m# {i:2}\033[0m => {push_swap_operations_nb}')
+			os.system(f"./push_swap {numbers_generated_str} | ./checker {numbers_generated_str}")
 			
 			# Replace stats if necessary
 			if stats["max_op"] < max(operations_lst):
 				stats["max_op"] = max(operations_lst)
 			if stats["min_op"] == -1 or stats["min_op"] > min(operations_lst):
 				stats["min_op"] = min(operations_lst)
-
-		# Print stats
-		print("\n######################################")
-		print(f'push_swap has been executed \033[1;32m{stats["iterations_nb"]}\033[0m times:\n')
-		print(f'The minimum was:       \033[1;32m{stats["min_op"]}\033[0m')
-		print(f'The maximum was:       \033[1;32m{stats["max_op"]}\033[0m')
-		print(f'Diff btwn min and max: \033[1;32m{stats["max_op"] - stats["min_op"]}\033[0m')
-		print(f'Average:               \033[1;32m{sum(operations_lst) / len(operations_lst)}\033[0m operations')
+		
+		print_stats(operations_lst, stats)
+		
 	else:
 		print("\033[1;31mError:\033[0m args")
