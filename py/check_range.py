@@ -6,7 +6,7 @@
 #    By: besellem <besellem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/16 19:05:14 by besellem          #+#    #+#              #
-#    Updated: 2021/03/23 14:32:14 by besellem         ###   ########.fr        #
+#    Updated: 2021/03/23 15:16:15 by besellem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,13 +28,13 @@ def	print_stats(operations_lst, stats):
 	print(f'Average:               \033[1;32m{average}\033[0m operations')
 
 	print("")
-	print("With the current average, your project seems ", end="")
-	if diff == 3:
+	print("With the current average, the test seems ", end="")
+	if diff <= 3:
 		if average > 3:
 			print("\033[1;31mKO :(\033[0m")
 		else:
 			print("\033[1;32mOK\033[0m")
-	elif diff == 5:
+	elif diff <= 5:
 		if average > 12:
 			print("\033[1;31mKO :(\033[0m")
 		else:

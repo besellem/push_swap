@@ -6,32 +6,17 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 16:31:08 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/23 13:27:36 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/23 15:23:59 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 /*
-** Algo #2
-** Idea:
-** backtracking algorithm, checking all the possibilities recursively and
-** keeping the fastest.
-**
-** To implement
-*/
-// int		ft_backtrack(t_push_swap *data)
-// {
-// 	if (ft_is_sorted(data))
-// 		return (1);
-// 	return (1);
-// }
-
-/*
-** swap all stack_b back in stack_a (using 'pa' operation)
+** Algo #1
 */
 
-void	swap_stack_back(t_push_swap *data)
+static void	swap_stack_back(t_push_swap *data)
 {
 	t_list *tmp;
 
@@ -45,11 +30,7 @@ void	swap_stack_back(t_push_swap *data)
 	}
 }
 
-/*
-** Algo #1
-*/
-
-void	algo_1(t_push_swap *data)
+static void	algo_1(t_push_swap *data)
 {
 	const int	min_idx = ft_lstmin_idx(data->stack_a, NULL);
 	int			i;
@@ -75,7 +56,7 @@ void	algo_1(t_push_swap *data)
 		ft_exec_cmd(data, "pb", PROG_NAME);
 }
 
-void	sort_algo_1(t_push_swap *data)
+void		sort_algo_1(t_push_swap *data)
 {
 	if (data->opt_v)
 		ft_opt_v(data);
@@ -85,13 +66,9 @@ void	sort_algo_1(t_push_swap *data)
 			(int)data->stack_a->content > (int)data->stack_a->next->content)
 			ft_exec_cmd(data, "sa", PROG_NAME);
 		if (data->stack_a && data->in_stack_a > 2)
-		{
 			algo_1(data);
-		}
 		else
-		{
 			swap_stack_back(data);
-		}
 	}
 }
 
@@ -230,9 +207,7 @@ void	sort_inf_median(t_push_swap *data, int *tab)
 	sort_stack_b(data);
 	while (data->stack_a &&
 		(int)data->stack_a->content < get_median(tab, data->tab_size))
-	{
 		ft_exec_cmd(data, "ra", PROG_NAME);
-	}
 }
 
 void	sort_sup_median(t_push_swap *data, int *tab)
@@ -253,9 +228,7 @@ void	sort_sup_median(t_push_swap *data, int *tab)
 	sort_stack_b(data);
 	while (data->stack_a &&
 		(int)data->stack_a->content > get_median(tab, data->tab_size))
-	{
 		ft_exec_cmd(data, "ra", PROG_NAME);
-	}
 }
 
 void	sort_algo_2(t_push_swap *data)
@@ -273,113 +246,6 @@ void	sort_algo_2(t_push_swap *data)
 ** ALGO #3
 ** Quicksort like
 */
-
-void	sort_stack_b_new(t_push_swap *data)
-{
-	int	max;
-
-	while (data->stack_b)
-	{
-		max = ft_lstmax(data->stack_b);
-		if ((int)data->stack_b->content == max)
-		{
-			ft_exec_cmd(data, "pa", PROG_NAME);
-		}
-		else
-		{
-			if ((int)ft_lstlast(data->stack_b)->content == max ||
-				ft_lstmax_idx(data->stack_b, NULL) >= data->in_stack_b / 2)
-				ft_exec_cmd(data, "rrb", PROG_NAME);
-			else
-				ft_exec_cmd(data, "rb", PROG_NAME);
-		}
-	}
-}
-
-void	sort_stack_a_new(t_push_swap *data)
-{
-	int	ocs;
-	int	min;
-
-	ocs = 0;
-	while (data->stack_a)
-	{
-		min = ft_lstmin(data->stack_a);
-		if ((int)data->stack_a->content == min)
-		{
-			++ocs;
-			ft_exec_cmd(data, "pb", PROG_NAME);
-		}
-		else
-		{
-			if ((int)ft_lstlast(data->stack_a)->content == min ||
-				ft_lstmin_idx(data->stack_a, NULL) >= data->in_stack_a / 2)
-				ft_exec_cmd(data, "rra", PROG_NAME);
-			else
-				ft_exec_cmd(data, "ra", PROG_NAME);
-		}
-	}
-	while (ocs-- > 0)
-		ft_exec_cmd(data, "pa", PROG_NAME);
-}
-
-void	sort_algo_3_100(t_push_swap *data)
-{
-	const int	*tab = ft_sort_lst_in_tab(data);
-
-	while (ft_lstmin(data->stack_a) < tab[data->tab_size / 2])
-	{
-		if ((int)data->stack_a->content < tab[data->tab_size / 2])
-			ft_exec_cmd(data, "pb", PROG_NAME);
-		else
-			ft_exec_cmd(data, "ra", PROG_NAME);
-	}
-	sort_stack_a_new(data);
-	sort_stack_b_new(data);
-	free((int *)tab);
-}
-
-int		ft_lstmin_range(t_list *lst, int start, int end)
-{
-	t_list	*tmp;
-	int		min;
-	int		i;
-
-	min = INT32_MAX;
-	if (end < start)
-		return (min);
-	i = 0;
-	tmp = lst;
-	while (tmp && i < end)
-	{
-		if (i >= start && min > (int)tmp->content)
-			min = (int)tmp->content;
-		++i;
-		tmp = tmp->next;
-	}
-	return (min);
-}
-
-int		ft_lstmax_range(t_list *lst, int start, int end)
-{
-	t_list	*tmp;
-	int		max;
-	int		i;
-
-	max = INT32_MIN;
-	if (end < start)
-		return (max);
-	i = 0;
-	tmp = lst;
-	while (tmp && i < end)
-	{
-		if (i >= start && max < (int)tmp->content)
-			max = (int)tmp->content;
-		++i;
-		tmp = tmp->next;
-	}
-	return (max);
-}
 
 int		ft_lst_is_in_range(t_list *lst, int start, int end)
 {
@@ -467,91 +333,20 @@ void	sort_algo_3(t_push_swap *data, double div)
 	free((int *)tab);
 }
 
-
-static int	sort3nbrs_edges(t_push_swap *data)
-{
-	if (data->in_stack_a == 2 &&
-		(int)data->stack_a->content > (int)data->stack_a->next->content)
-	{
-		ft_exec_cmd(data, "sa", PROG_NAME);
-		return (1);
-	}
-	return (0);
-}
-
-static void	set3nbrs(t_push_swap *data, int tab[])
-{
-	tab[0] = (int)data->stack_a->content;
-	tab[1] = (int)data->stack_a->next->content;
-	tab[2] = (int)data->stack_a->next->next->content;
-}
-
-void		sort3nbrs_others(t_push_swap *data)
-{
-	int	tab[3];
-
-	set3nbrs(data, tab);
-	if (tab[0] > tab[1] && tab[1] > tab[2])	// [3 2 1]
-	{
-		ft_exec_cmd(data, "ra", PROG_NAME);
-		ft_exec_cmd(data, "sa", PROG_NAME);
-	}
-	else if (tab[0] > tab[1] && tab[1] < tab[2])
-	{
-		if (tab[0] < tab[2])				// [2 1 3]
-			ft_exec_cmd(data, "sa", PROG_NAME);
-		else								// [3 1 2]
-			ft_exec_cmd(data, "ra", PROG_NAME);
-	}
-	else if (tab[0] < tab[1] && tab[1] > tab[2])
-	{
-		if (tab[0] > tab[2])				// [2 3 1]
-			ft_exec_cmd(data, "rra", PROG_NAME);
-		else								// [1 3 2]
-		{
-			ft_exec_cmd(data, "sa", PROG_NAME);
-			ft_exec_cmd(data, "ra", PROG_NAME);
-		}
-	}
-}
-
-void	sort5nbrs(t_push_swap *data)
-{
-	while (data->in_stack_b < 2)
-	{
-		if ((int)data->stack_a->content == ft_lstmin(data->stack_a))
-			ft_exec_cmd(data, "pb", PROG_NAME);
-		else
-		{
-			if (ft_lstmin_idx(data->stack_a, NULL) < data->in_stack_a / 2)
-				ft_exec_cmd(data, "ra", PROG_NAME);
-			else
-				ft_exec_cmd(data, "rra", PROG_NAME);
-		}
-	}
-	if (sort3nbrs_edges(data) == 0)
-		sort3nbrs(data);
-	if ((int)data->stack_b->content < (int)data->stack_b->next->content)
-		ft_exec_cmd(data, "sb", PROG_NAME);
-	ft_exec_cmd(data, "pa", PROG_NAME);
-	ft_exec_cmd(data, "pa", PROG_NAME);
-}
-
 void	ft_push_swap(t_push_swap *data)
 {
 	if (data->in_stack_a <= 3)
 		sort3nbrs(data);
 	else if (data->in_stack_a <= 5)
 		sort5nbrs(data);
-	else if (data->in_stack_a <= 100)
+	else if (data->in_stack_a <= 180)
 	{
-		sort_algo_3(data, 2.);
+		sort_algo_1(data);
+		// sort_algo_3(data, 2.);
 	}
 	else
 	{
 		// sort_algo_2(data);
-		// sort_algo_3_100(data);
-		// sort_algo_3_100_new(data);
 		sort_algo_3(data, 10.);
 	}
 }
