@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 16:31:08 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/23 15:23:59 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/23 15:48:54 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,7 +288,7 @@ void	unsort_stack_b(t_push_swap *data)
 	}
 }
 
-void	sort_algo_3(t_push_swap *data, double div)
+void	sort_algo_3(t_push_swap *data, int div)
 {
 	const int	*tab = ft_sort_lst_in_tab(data);
 	double		start;
@@ -296,7 +296,7 @@ void	sort_algo_3(t_push_swap *data, double div)
 	int			count;
 
 	start = 1;
-	end = data->tab_size / div;
+	end = data->tab_size / (double)div;
 	while (start < data->tab_size)// - (data->tab_size % 2 == 0))
 	{
 		count = 0;
@@ -324,11 +324,14 @@ void	sort_algo_3(t_push_swap *data, double div)
 		else
 		{
 			while (count-- > 0)
+			{
 				ft_exec_cmd(data, "rra", PROG_NAME);
+				// printf("count[%d] calc[%d]\n", count, count);
+			}
 		}
 		unsort_stack_b(data);
-		start += data->tab_size / div;
-		end += data->tab_size / div;
+		start += data->tab_size / (double)div;
+		end += data->tab_size / (double)div;
 	}
 	free((int *)tab);
 }
@@ -341,13 +344,14 @@ void	ft_push_swap(t_push_swap *data)
 		sort5nbrs(data);
 	else if (data->in_stack_a <= 180)
 	{
-		sort_algo_1(data);
-		// sort_algo_3(data, 2.);
+		// sort_algo_2(data);	// seems better in this case
+		sort_algo_3(data, 2);
+		// sort_algo_3(data, 10);
 	}
 	else
 	{
 		// sort_algo_2(data);
-		sort_algo_3(data, 10.);
+		sort_algo_3(data, 10);
 	}
 }
 

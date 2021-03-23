@@ -6,7 +6,7 @@
 #    By: besellem <besellem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/16 19:05:14 by besellem          #+#    #+#              #
-#    Updated: 2021/03/23 15:16:15 by besellem         ###   ########.fr        #
+#    Updated: 2021/03/23 16:04:29 by besellem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,44 +27,46 @@ def	print_stats(operations_lst, stats):
 	print(f'Diff btwn min and max: \033[1;32m{stats["max_op"] - stats["min_op"]}\033[0m')
 	print(f'Average:               \033[1;32m{average}\033[0m operations')
 
-	print("")
-	print("With the current average, the test seems ", end="")
-	if diff <= 3:
-		if average > 3:
-			print("\033[1;31mKO :(\033[0m")
+	if diff <= 500:
+		print("")
+		print("With the current average, the test seems ", end="")
+		
+		if diff <= 3:
+			if average > 3:
+				print("\033[1;31mKO :(\033[0m")
+			else:
+				print("\033[1;32mOK\033[0m")
+		elif diff <= 5:
+			if average > 12:
+				print("\033[1;31mKO :(\033[0m")
+			else:
+				print("\033[1;32mOK\033[0m")
+		elif diff <= 100:
+			if average > 1500:
+				print("\033[1;31mKO :(\033[0m")
+			elif average > 1300:
+				print("\033[1;32mOK with barem 1\033[0m")
+			elif average > 1100:
+				print("\033[1;32mOK with barem 2\033[0m")
+			elif average > 900:
+				print("\033[1;32mOK with barem 3\033[0m")
+			elif average > 700:
+				print("\033[1;32mOK with barem 4\033[0m")
+			else:
+				print("\033[1;32mOK with barem 5! Good job!\033[0m")
 		else:
-			print("\033[1;32mOK\033[0m")
-	elif diff <= 5:
-		if average > 12:
-			print("\033[1;31mKO :(\033[0m")
-		else:
-			print("\033[1;32mOK\033[0m")
-	elif diff <= 100:
-		if average > 1500:
-			print("\033[1;31mKO :(\033[0m")
-		elif average > 1300:
-			print("\033[1;32mOK with barem 1\033[0m")
-		elif average > 1100:
-			print("\033[1;32mOK with barem 2\033[0m")
-		elif average > 900:
-			print("\033[1;32mOK with barem 3\033[0m")
-		elif average > 700:
-			print("\033[1;32mOK with barem 4\033[0m")
-		else:
-			print("\033[1;32mOK with barem 5! Good job!\033[0m")
-	elif diff <= 500:
-		if average > 11500:
-			print("\033[1;31mKO :(\033[0m")
-		elif average > 10000:
-			print("\033[1;32mOK with barem 1\033[0m")
-		elif average > 8500:
-			print("\033[1;32mOK with barem 2\033[0m")
-		elif average > 7000:
-			print("\033[1;32mOK with barem 3\033[0m")
-		elif average > 5500:
-			print("\033[1;32mOK with barem 4\033[0m")
-		else:
-			print("\033[1;32mOK with barem 5! Good job!\033[0m")
+			if average > 11500:
+				print("\033[1;31mKO :(\033[0m")
+			elif average > 10000:
+				print("\033[1;32mOK with barem 1\033[0m")
+			elif average > 8500:
+				print("\033[1;32mOK with barem 2\033[0m")
+			elif average > 7000:
+				print("\033[1;32mOK with barem 3\033[0m")
+			elif average > 5500:
+				print("\033[1;32mOK with barem 4\033[0m")
+			else:
+				print("\033[1;32mOK with barem 5! Good job!\033[0m")
 
 
 if __name__ == "__main__":
@@ -73,6 +75,9 @@ if __name__ == "__main__":
 		
 		if not os.path.isfile("./push_swap"):
 			print("\033[1;31mError:\033[0m push_swap does not exist (create executable first)")
+			exit(1)
+		if not os.path.isfile("./checker"):
+			print("\033[1;31mError:\033[0m checker does not exist (create executable first)")
 			exit(1)
 
 		operations_lst = []
