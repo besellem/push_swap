@@ -6,11 +6,43 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 10:17:25 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/16 15:59:17 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/23 13:27:50 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
+
+int	ft_lstmin(t_list *lst)
+{
+	t_list	*tmp;
+	int		min;
+
+	min = INT32_MAX;
+	tmp = lst;
+	while (tmp)
+	{
+		if (min > (int)tmp->content)
+			min = (int)tmp->content;
+		tmp = tmp->next;
+	}
+	return (min);
+}
+
+int	ft_lstmax(t_list *lst)
+{
+	t_list	*tmp;
+	int		max;
+
+	max = INT32_MIN;
+	tmp = lst;
+	while (tmp)
+	{
+		if (max < (int)tmp->content)
+			max = (int)tmp->content;
+		tmp = tmp->next;
+	}
+	return (max);
+}
 
 int	ft_lstmin_idx(t_list *lst, int *nb)
 {

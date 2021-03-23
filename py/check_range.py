@@ -6,7 +6,7 @@
 #    By: besellem <besellem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/16 19:05:14 by besellem          #+#    #+#              #
-#    Updated: 2021/03/22 17:11:07 by besellem         ###   ########.fr        #
+#    Updated: 2021/03/23 14:32:14 by besellem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,7 +102,11 @@ if __name__ == "__main__":
 
 			# Print current state
 			print(f'\033[1;36m# {i:2}\033[0m => {push_swap_operations_nb}')
+			# print(numbers_generated_str)
 			os.system(f"./push_swap {numbers_generated_str} | ./checker {numbers_generated_str}")
+			
+			# 2 4 1 3 5
+			# 2 5 1 4 3
 			
 			# Replace stats if necessary
 			if stats["max_op"] < max(operations_lst):

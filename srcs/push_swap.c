@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 16:31:08 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/22 23:54:54 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/23 13:27:36 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,38 +182,6 @@ int		*ft_sort_lst_in_tab(t_push_swap *data)
 	return (tab);
 }
 // END SORT LST IN TAB
-
-int	ft_lstmax(t_list *lst)
-{
-	t_list	*tmp;
-	int		max;
-
-	max = INT32_MIN;
-	tmp = lst;
-	while (tmp)
-	{
-		if (max < (int)tmp->content)
-			max = (int)tmp->content;
-		tmp = tmp->next;
-	}
-	return (max);
-}
-
-int	ft_lstmin(t_list *lst)
-{
-	t_list	*tmp;
-	int		min;
-
-	min = INT32_MAX;
-	tmp = lst;
-	while (tmp)
-	{
-		if (min > (int)tmp->content)
-			min = (int)tmp->content;
-		tmp = tmp->next;
-	}
-	return (min);
-}
 
 void	sort_stack_b(t_push_swap *data)
 {
@@ -454,67 +422,119 @@ void	unsort_stack_b(t_push_swap *data)
 	}
 }
 
-#define STACK_DIV_FOR_500_NBRS 10
-
-void	sort_algo_3_500(t_push_swap *data)
+void	sort_algo_3(t_push_swap *data, double div)
 {
 	const int	*tab = ft_sort_lst_in_tab(data);
-	int			start;
-	int			end;
+	double		start;
+	double		end;
+	int			count;
 
 	start = 1;
-	end = data->tab_size / STACK_DIV_FOR_500_NBRS;
-	while (start < data->tab_size - (data->tab_size % 2 == 0))
+	end = data->tab_size / div;
+	while (start < data->tab_size)// - (data->tab_size % 2 == 0))
 	{
-		while (ft_lst_is_in_range(data->stack_a, tab[start - 1], tab[end - 1]))
+		count = 0;
+		while (ft_lst_is_in_range(data->stack_a, tab[(int)start - 1], tab[(int)end - 1]))
 		{
-			if ((int)data->stack_a->content >= tab[start - 1]
-				&& (int)data->stack_a->content <= tab[end - 1])
+			if ((int)data->stack_a->content >= tab[(int)start - 1]
+				&& (int)data->stack_a->content <= tab[(int)end - 1])
 				ft_exec_cmd(data, "pb", PROG_NAME);
 			else
 			{
 				ft_exec_cmd(data, "ra", PROG_NAME);
+				++count;
 			}
 		}
+		if (0)
+		{
+			count = count + end;
+			while (count-- > 0)
+			{
+				ft_exec_cmd(data, "ra", PROG_NAME);
+				printf("Here\n");
+				exit(1);
+			}
+		}
+		else
+		{
+			while (count-- > 0)
+				ft_exec_cmd(data, "rra", PROG_NAME);
+		}
 		unsort_stack_b(data);
-		start += data->tab_size / STACK_DIV_FOR_500_NBRS;
-		end += data->tab_size / STACK_DIV_FOR_500_NBRS;
+		start += data->tab_size / div;
+		end += data->tab_size / div;
 	}
 	free((int *)tab);
 }
 
-#define STACK_DIV_FOR_100_NBRS 2
 
-void	sort_algo_3_100_new(t_push_swap *data)
+static int	sort3nbrs_edges(t_push_swap *data)
 {
-	const int	*tab = ft_sort_lst_in_tab(data);
-	int			start;
-	int			end;
-
-	start = 1;
-	end = data->tab_size / STACK_DIV_FOR_100_NBRS;
-	while (start < data->tab_size - (data->tab_size % 2 == 0))
+	if (data->in_stack_a == 2 &&
+		(int)data->stack_a->content > (int)data->stack_a->next->content)
 	{
-		while (ft_lst_is_in_range(data->stack_a, tab[start - 1], tab[end - 1]))
-		{
-			if ((int)data->stack_a->content >= tab[start - 1]
-				&& (int)data->stack_a->content <= tab[end - 1])
-				ft_exec_cmd(data, "pb", PROG_NAME);
-			else
-			{
-				ft_exec_cmd(data, "ra", PROG_NAME);
-			}
-		}
-		unsort_stack_b(data);
-		start += data->tab_size / STACK_DIV_FOR_100_NBRS;
-		end += data->tab_size / STACK_DIV_FOR_100_NBRS;
+		ft_exec_cmd(data, "sa", PROG_NAME);
+		return (1);
 	}
-	free((int *)tab);
+	return (0);
+}
+
+static void	set3nbrs(t_push_swap *data, int tab[])
+{
+	tab[0] = (int)data->stack_a->content;
+	tab[1] = (int)data->stack_a->next->content;
+	tab[2] = (int)data->stack_a->next->next->content;
+}
+
+void		sort3nbrs_others(t_push_swap *data)
+{
+	int	tab[3];
+
+	set3nbrs(data, tab);
+	if (tab[0] > tab[1] && tab[1] > tab[2])	// [3 2 1]
+	{
+		ft_exec_cmd(data, "ra", PROG_NAME);
+		ft_exec_cmd(data, "sa", PROG_NAME);
+	}
+	else if (tab[0] > tab[1] && tab[1] < tab[2])
+	{
+		if (tab[0] < tab[2])				// [2 1 3]
+			ft_exec_cmd(data, "sa", PROG_NAME);
+		else								// [3 1 2]
+			ft_exec_cmd(data, "ra", PROG_NAME);
+	}
+	else if (tab[0] < tab[1] && tab[1] > tab[2])
+	{
+		if (tab[0] > tab[2])				// [2 3 1]
+			ft_exec_cmd(data, "rra", PROG_NAME);
+		else								// [1 3 2]
+		{
+			ft_exec_cmd(data, "sa", PROG_NAME);
+			ft_exec_cmd(data, "ra", PROG_NAME);
+		}
+	}
 }
 
 void	sort5nbrs(t_push_swap *data)
 {
-	sort_algo_1(data);
+	while (data->in_stack_b < 2)
+	{
+		if ((int)data->stack_a->content == ft_lstmin(data->stack_a))
+			ft_exec_cmd(data, "pb", PROG_NAME);
+		else
+		{
+			if (ft_lstmin_idx(data->stack_a, NULL) < data->in_stack_a / 2)
+				ft_exec_cmd(data, "ra", PROG_NAME);
+			else
+				ft_exec_cmd(data, "rra", PROG_NAME);
+		}
+	}
+	if (sort3nbrs_edges(data) == 0)
+		sort3nbrs(data);
+	if ((int)data->stack_b->content < (int)data->stack_b->next->content)
+		ft_exec_cmd(data, "sb", PROG_NAME);
+	ft_exec_cmd(data, "pa", PROG_NAME);
+	ft_exec_cmd(data, "pa", PROG_NAME);
 }
 
 void	ft_push_swap(t_push_swap *data)
@@ -525,16 +545,14 @@ void	ft_push_swap(t_push_swap *data)
 		sort5nbrs(data);
 	else if (data->in_stack_a <= 100)
 	{
-		// sort_algo_2(data);
-		// sort_algo_3_100(data);
-		sort_algo_3_100_new(data);
-		// sort_algo_3_500(data);
+		sort_algo_3(data, 2.);
 	}
 	else
 	{
 		// sort_algo_2(data);
 		// sort_algo_3_100(data);
-		sort_algo_3_500(data);
+		// sort_algo_3_100_new(data);
+		sort_algo_3(data, 10.);
 	}
 }
 

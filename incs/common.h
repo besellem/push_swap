@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 16:35:27 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/22 19:21:38 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/23 13:30:43 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef	struct	s_push_swap
 {
 	int		opt_c : 2;
 	int		opt_v : 2;
+	int		opt_f : 2;
 	int		start_arg;
 	int		tab_size;
 	int		in_stack_a;
@@ -59,6 +60,8 @@ void			ft_quit_sorted(t_push_swap *data);
 /*
 ** Utils
 */
+int				ft_lstmin(t_list *lst);
+int				ft_lstmax(t_list *lst);
 int				ft_lstmin_idx(t_list *lst, int *nb);
 int				ft_lstmax_idx(t_list *lst, int *nb);
 
@@ -72,6 +75,7 @@ void			ft_cpy_args(int ac, char **av, t_push_swap *data);
 ** Options
 */
 void			ft_opt_v(t_push_swap *data);
+void			ft_opt_f(t_push_swap *data);
 
 /*
 ** operations

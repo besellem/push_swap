@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 23:36:18 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/22 19:31:20 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/23 13:28:55 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void		ft_parse_args(int ac, char **av, t_push_swap *data)
 			data->opt_c = 1;
 		else if (ft_strcmp(av[data->start_arg], "-v") == 0 && !data->opt_v)
 			data->opt_v = 1;
+		else if (ft_strcmp(av[data->start_arg], "-f") == 0 && !data->opt_f)
+			data->opt_f = 1;
 		else
 			break ;
 		data->start_arg++;

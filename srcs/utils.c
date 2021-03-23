@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 22:05:24 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/16 21:30:11 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/23 13:30:33 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ int		ft_exec_cmd(t_push_swap *data, char *line, char *prog_name)
 			ops[i].f(data);
 			if (ft_strcmp(prog_name, PROG_PUSH_SWAP) == 0)
 				ft_putendl(ops[i].operation_name);
-			if (data->opt_v)
+			if (data->opt_f)
+				ft_opt_f(data);
+			else if (data->opt_v)
 				ft_opt_v(data);
 			return (1);
 		}
