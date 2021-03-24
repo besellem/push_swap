@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 16:31:08 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/24 09:42:53 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/24 10:26:58 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,6 @@ void		sort_algo_1(t_push_swap *data)
 			swap_stack_back(data);
 	}
 }
-
-/*
-** ALGO #2
-** Quicksort like
-*/
 
 // SORT LST IN TAB
 int	get_median(const int *tab, size_t size)
@@ -160,88 +155,6 @@ int		*ft_sort_lst_in_tab(t_push_swap *data)
 }
 // END SORT LST IN TAB
 
-void	sort_stack_b(t_push_swap *data)
-{
-	int min;
-	int max;
-
-	while (data->stack_b)
-	{
-		min = ft_lstmin(data->stack_b);
-		max = ft_lstmax(data->stack_b);
-		if ((int)data->stack_b->content == min)
-		{
-			ft_exec_cmd(data, "pa", PROG_NAME);
-			ft_exec_cmd(data, "ra", PROG_NAME);
-		}
-		else if ((int)data->stack_b->content == max)
-		{
-			ft_exec_cmd(data, "pa", PROG_NAME);
-		}
-		else
-		{
-			if ((int)ft_lstlast(data->stack_b)->content == max || 
-				(int)ft_lstlast(data->stack_b)->content == min)
-				ft_exec_cmd(data, "rrb", PROG_NAME);
-			else
-				ft_exec_cmd(data, "rb", PROG_NAME);
-		}
-	}
-}
-
-void	sort_inf_median(t_push_swap *data, int *tab)
-{
-	int	ocs;
-
-	ocs = 0;
-	while (ocs < get_median(tab, data->tab_size) - 1)
-	{
-		if ((int)data->stack_a->content < get_median(tab, data->tab_size))
-		{
-			ft_exec_cmd(data, "pb", PROG_NAME);
-			++ocs;
-		}
-		else
-			ft_exec_cmd(data, "ra", PROG_NAME);
-	}
-	sort_stack_b(data);
-	while (data->stack_a &&
-		(int)data->stack_a->content < get_median(tab, data->tab_size))
-		ft_exec_cmd(data, "ra", PROG_NAME);
-}
-
-void	sort_sup_median(t_push_swap *data, int *tab)
-{
-	int	ocs;
-
-	ocs = data->in_stack_a;
-	while (ocs > get_median(tab, data->tab_size))
-	{
-		if ((int)data->stack_a->content > get_median(tab, data->tab_size))
-		{
-			ft_exec_cmd(data, "pb", PROG_NAME);
-			--ocs;
-		}
-		else
-			ft_exec_cmd(data, "ra", PROG_NAME);
-	}
-	sort_stack_b(data);
-	while (data->stack_a &&
-		(int)data->stack_a->content > get_median(tab, data->tab_size))
-		ft_exec_cmd(data, "ra", PROG_NAME);
-}
-
-void	sort_algo_2(t_push_swap *data)
-{
-	int	*tab = ft_sort_lst_in_tab(data);
-
-	if (data->opt_v)
-		ft_opt_v(data);
-	sort_inf_median(data, tab);
-	sort_sup_median(data, tab);
-	free((int *)tab);
-}
-
 /*
 ** ALGO #3
 ** Quicksort like
@@ -297,7 +210,7 @@ void	sort_algo_3(t_push_swap *data, int div)
 
 	start = 1;
 	end = data->tab_size / (double)div;
-	while (start <= data->tab_size)// - (data->tab_size % 2 == 0))
+	while (start <= data->tab_size)
 	{
 		count = 0;
 		while (ft_lst_is_in_range(data->stack_a, tab[(int)start - 1], tab[(int)end - 1]))
@@ -310,20 +223,14 @@ void	sort_algo_3(t_push_swap *data, int div)
 				ft_exec_cmd(data, "ra", PROG_NAME);
 				++count;
 			}
-			// printf("start[%d] end[%d]\n", tab[(int)start - 1], tab[(int)end - 1]);
 		}
-		// printf("lstmin_idx[%d]\n", ft_lstmin_idx(data->stack_a, NULL));
-		if (start != 1 && 0)
+		int tmp = ft_lstmin_idx(data->stack_a, NULL) + (data->in_stack_a - (count + ft_lstmin_idx(data->stack_a, NULL)));
+
+		if (start != 1 && tmp < count)
 		{
-			// printf("lstmin_idx[%d]\n", ft_lstmin_idx(data->stack_a, NULL));
-			// if (ft_lstmin_idx(data->stack_a, NULL) + tab[(int)start - 1] > count)
-			// 	count = count;
+			count = tmp;
 			while (count-- > 0)
-			{
 				ft_exec_cmd(data, "ra", PROG_NAME);
-				printf("Here\n");
-				exit(1);
-			}
 		}
 		else if (start != 1)
 		{
@@ -336,27 +243,21 @@ void	sort_algo_3(t_push_swap *data, int div)
 	}
 	if (!ft_is_sorted(data) && ft_lstmax_idx(data->stack_a, NULL) == 0)
 		ft_exec_cmd(data, "ra", PROG_NAME);
-	// printf("stcka_sz[%d] max_idx[%d]\n", data->tab_size, ft_lstmax_idx(data->stack_a, NULL));
 	free((int *)tab);
 }
 
 void	ft_push_swap(t_push_swap *data)
 {
+	if (ft_is_sorted(data))
+		return ;
 	if (data->in_stack_a <= 3)
 		sort3nbrs(data);
 	else if (data->in_stack_a <= 5)
 		sort5nbrs(data);
 	else if (data->in_stack_a <= 180)
-	{
-		// sort_algo_2(data);	// seems better in this case
-		// sort_algo_3(data, 2);
-		sort_algo_3(data, 10);
-	}
+		sort_algo_3(data, 4);
 	else
-	{
-		// sort_algo_2(data);
 		sort_algo_3(data, 10);
-	}
 }
 
 int		main(int ac, char **av)

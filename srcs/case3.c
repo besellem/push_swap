@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 15:57:35 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/23 15:50:42 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/24 10:24:53 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static int	sort3nbrs_edges(t_push_swap *data)
 {
-	if (ft_is_sorted(data))
-		return (1);
 	if (data->in_stack_a == 2)
 	{
 		ft_exec_cmd(data, "sa", PROG_NAME);
