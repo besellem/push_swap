@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 15:02:40 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/23 15:14:23 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/24 10:56:24 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,23 @@ static void	sort3nbrs_others(t_push_swap *data)
 	int	tab[3];
 
 	set3nbrs(data, tab);
-	if (tab[0] > tab[1] && tab[1] > tab[2])	// [3 2 1]
+	if (tab[0] > tab[1] && tab[1] > tab[2])
 	{
 		ft_exec_cmd(data, "ra", PROG_NAME);
 		ft_exec_cmd(data, "sa", PROG_NAME);
 	}
 	else if (tab[0] > tab[1] && tab[1] < tab[2])
 	{
-		if (tab[0] < tab[2])				// [2 1 3]
+		if (tab[0] < tab[2])
 			ft_exec_cmd(data, "sa", PROG_NAME);
-		else								// [3 1 2]
+		else
 			ft_exec_cmd(data, "ra", PROG_NAME);
 	}
 	else if (tab[0] < tab[1] && tab[1] > tab[2])
 	{
-		if (tab[0] > tab[2])				// [2 3 1]
+		if (tab[0] > tab[2])
 			ft_exec_cmd(data, "rra", PROG_NAME);
-		else								// [1 3 2]
+		else
 		{
 			ft_exec_cmd(data, "sa", PROG_NAME);
 			ft_exec_cmd(data, "ra", PROG_NAME);

@@ -6,7 +6,7 @@
 #    By: besellem <besellem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/12 16:32:37 by besellem          #+#    #+#              #
-#    Updated: 2021/03/23 15:11:44 by besellem         ###   ########.fr        #
+#    Updated: 2021/03/24 10:41:25 by besellem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,8 @@ COMMON_SRCS		=	$(SRCS_FOLDER)/case3.c \
 					$(SRCS_FOLDER)/operations_p.c \
 					$(SRCS_FOLDER)/operations_r.c \
 					$(SRCS_FOLDER)/operations_rr.c \
+					$(SRCS_FOLDER)/sort_in_tab.c \
+					$(SRCS_FOLDER)/sort_algo.c \
 					$(SRCS_FOLDER)/utils.c
 
 PUSH_SWAP_SRCS	=	$(SRCS_FOLDER)/push_swap.c

@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 23:40:24 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/24 09:41:39 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/24 10:54:43 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #define OPT_V_HDR2 "   Stack A   |   Stack B   "
 
 /*
-** Visualizer
+** Sorting Visualizer
 */
 
 void		ft_opt_v(t_push_swap *data)
@@ -23,7 +23,7 @@ void		ft_opt_v(t_push_swap *data)
 	t_list	*stack_a;
 	t_list	*stack_b;
 
-	usleep(70000);
+	usleep(15000);
 	ft_putendl(CLR_SCREEN "" OPT_V_HDR1 "\n" OPT_V_HDR2 "\n" OPT_V_HDR1);
 	stack_a = data->stack_a;
 	stack_b = data->stack_b;
@@ -47,7 +47,7 @@ void		ft_opt_v(t_push_swap *data)
 }
 
 /*
-** Visualizer (colored)
+** Sorting Visualizer (colored)
 ** Does not work with neg numbers and 0
 */
 
@@ -77,7 +77,7 @@ void		ft_opt_f(t_push_swap *data)
 	t_list	*stack_a;
 	t_list	*stack_b;
 
-	usleep(12000);
+	usleep(15000);
 	ft_putstr(CLR_SCREEN);
 	stack_a = data->stack_a;
 	stack_b = data->stack_b;
