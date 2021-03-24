@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 16:31:08 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/23 15:48:54 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/24 09:42:53 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,7 +297,7 @@ void	sort_algo_3(t_push_swap *data, int div)
 
 	start = 1;
 	end = data->tab_size / (double)div;
-	while (start < data->tab_size)// - (data->tab_size % 2 == 0))
+	while (start <= data->tab_size)// - (data->tab_size % 2 == 0))
 	{
 		count = 0;
 		while (ft_lst_is_in_range(data->stack_a, tab[(int)start - 1], tab[(int)end - 1]))
@@ -310,10 +310,14 @@ void	sort_algo_3(t_push_swap *data, int div)
 				ft_exec_cmd(data, "ra", PROG_NAME);
 				++count;
 			}
+			// printf("start[%d] end[%d]\n", tab[(int)start - 1], tab[(int)end - 1]);
 		}
-		if (0)
+		// printf("lstmin_idx[%d]\n", ft_lstmin_idx(data->stack_a, NULL));
+		if (start != 1 && 0)
 		{
-			count = count + end;
+			// printf("lstmin_idx[%d]\n", ft_lstmin_idx(data->stack_a, NULL));
+			// if (ft_lstmin_idx(data->stack_a, NULL) + tab[(int)start - 1] > count)
+			// 	count = count;
 			while (count-- > 0)
 			{
 				ft_exec_cmd(data, "ra", PROG_NAME);
@@ -321,18 +325,18 @@ void	sort_algo_3(t_push_swap *data, int div)
 				exit(1);
 			}
 		}
-		else
+		else if (start != 1)
 		{
 			while (count-- > 0)
-			{
 				ft_exec_cmd(data, "rra", PROG_NAME);
-				// printf("count[%d] calc[%d]\n", count, count);
-			}
 		}
 		unsort_stack_b(data);
 		start += data->tab_size / (double)div;
 		end += data->tab_size / (double)div;
 	}
+	if (!ft_is_sorted(data) && ft_lstmax_idx(data->stack_a, NULL) == 0)
+		ft_exec_cmd(data, "ra", PROG_NAME);
+	// printf("stcka_sz[%d] max_idx[%d]\n", data->tab_size, ft_lstmax_idx(data->stack_a, NULL));
 	free((int *)tab);
 }
 
@@ -345,8 +349,8 @@ void	ft_push_swap(t_push_swap *data)
 	else if (data->in_stack_a <= 180)
 	{
 		// sort_algo_2(data);	// seems better in this case
-		sort_algo_3(data, 2);
-		// sort_algo_3(data, 10);
+		// sort_algo_3(data, 2);
+		sort_algo_3(data, 10);
 	}
 	else
 	{
@@ -359,7 +363,7 @@ int		main(int ac, char **av)
 {
 	t_push_swap	data;
 
-	if (ac <= 1)
+	if (ac < 2)
 		return (0);
 	ft_bzero(&data, sizeof(t_push_swap));
 	ft_parse_args(ac, av, &data);

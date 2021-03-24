@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 23:40:24 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/23 15:45:02 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/24 09:41:39 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		ft_opt_v(t_push_swap *data)
 	t_list	*stack_a;
 	t_list	*stack_b;
 
-	// usleep(3000);
+	usleep(70000);
 	ft_putendl(CLR_SCREEN "" OPT_V_HDR1 "\n" OPT_V_HDR2 "\n" OPT_V_HDR1);
 	stack_a = data->stack_a;
 	stack_b = data->stack_b;

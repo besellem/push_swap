@@ -6,7 +6,7 @@
 /*   By: besellem <besellem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 16:32:54 by besellem          #+#    #+#             */
-/*   Updated: 2021/03/18 15:08:58 by besellem         ###   ########.fr       */
+/*   Updated: 2021/03/24 09:18:08 by besellem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int			main(int ac, char **av)
 {
 	t_push_swap data;
 
-	if (ac <= 1)
+	if (ac < 2)
 		return (0);
 	ft_bzero(&data, sizeof(t_push_swap));
 	ft_parse_args(ac, av, &data);
